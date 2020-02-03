@@ -12,15 +12,42 @@ export class CrudPage implements OnInit {
     correo: '',
     edad: 0,
     password: '',
-    passwordConfirmacion: ''
+    passwordConfirmacion: '',
+    cargo: 'aaa'
   };
+  producto = {
+    proName: '',
+    descripcion: '',
+    precio: '',
+    imagen: ''
+  }
 
   constructor() { }
 
   crearUsuario(formulario: NgForm) {
     console.log(formulario);
   }
+
+  validarPasswordsIguales(): boolean {
+    if (this.usuario.password === this.usuario.passwordConfirmacion) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  validarVendedor(): boolean {
+    if (this.usuario.cargo === "Vendedor"){
+      return true;
+    } else {
+    return false;
+}
+  }
+  crearProducto(formulario: NgForm) {
+    console.log(formulario);
+  }
   ngOnInit() {
   }
 
 }
+

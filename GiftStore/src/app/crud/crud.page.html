@@ -5,9 +5,12 @@
 </ion-header>
 
 <ion-content>
+
   <form (ngSubmit)="crearUsuario(usuarioFormulario)"
-        #usuarioFormulario="ngForm">
-    <!--h1 #papa>papa</h1> -->
+        #usuarioFormulario="ngForm"
+  >
+    <!--Crear Uusuario -->
+    <ion-card expand="full" [disabled] = "validarVendedor() == true">
     <ion-item>
       <ion-label>Nombre</ion-label>
       <!--<h1 #papa>Nombre:</h1> -->
@@ -103,5 +106,72 @@
       {{nombreInput.errors | json}}
     </pre>
     -->
+  </ion-card>
+  </form>
+
+  <form (ngSubmit)="crearProducto(productoFormulario)"
+        #productoFormulario="ngForm"
+  >
+    <!-- Registro de un producto-->
+    <ion-card expand="full" [disabled] = "validarVendedor() == true">
+      <h1>Registro de un Producto</h1>
+      <ion-item>
+        <ion-label>Nombre</ion-label>
+        <br>
+        <input type="text"
+               name="proNombre"
+               required
+               placeholder="Ej Auriculares Samsung"
+               title="Llenar el nombre."
+               minlength="3"
+               maxlength="20"
+               [(ngModel)]="producto.proName"
+               #nombreInput="ngModel">  <!-- variable de template -->
+        <br>
+      </ion-item>
+      <br>
+      <ion-item>
+        <ion-label>Precio</ion-label>
+        <input type="text"
+               name="precio"
+               number
+               required
+               pattern="([0-9])+"
+               placeholder="Ej 50"
+               [(ngModel)]="producto.precio"
+               #precioInput="ngModel">
+      </ion-item>
+      <!--pattern="([0-9])\w+" -->
+      <ion-item>
+        <ion-label>Detalle del producto:</ion-label>
+        <input type="text"
+               name="detalle"
+               placeholder="Ej Producto de belleza"
+               [(ngModel)]="producto.descripcion"
+               #pDescripcionInput="ngModel">
+      </ion-item>
+      <ion-item text-center>
+        <ion-button expand="full" >Añadir Imagenes</ion-button>
+      </ion-item>
+
+      <div *ngIf="passwordInput.touched && passwordInput.dirty &&
+                passwordConfirmacionInput.touched && passwordConfirmacionInput.dirty">
+        <p *ngIf="validarPasswordsIguales()">
+          Las passwords no coinciden</p>
+        <ion-button  expand="full" [disabled]="productoFormulario.invalid"> ACEPTAR
+        </ion-button>
+      </div>
+
+
+      <div *ngIf="nombreInput.touched && nombreInput.dirty">
+        <p *ngIf="nombreInput?.errors?.required">
+          Este campo es requerido </p>
+        <p *ngIf="nombreInput?.errors?.minlength">
+          Llenar con un minimo de 3 caracteres </p>
+        <p *ngIf="nombreInput?.errors?.maxlength">
+          Maximo 200 caracteres
+        </p>
+      </div>
+    </ion-card>
   </form>
 </ion-content>
